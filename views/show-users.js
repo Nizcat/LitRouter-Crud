@@ -40,7 +40,10 @@ export class ShowUsers extends navigator(LitElement) {
     super();
     this.users = [];
     this.getdata();
-    this.storage = window.localStorage;
+    localStorage.clear();
+    window.addEventListener('storage', (e) => {
+      console.log(e, "event")
+    })
   }
   firstUpdated() {
     super.firstUpdated();
@@ -50,7 +53,6 @@ export class ShowUsers extends navigator(LitElement) {
   render() {
     return html`
       <h1>Users</h1>
-
       <table class="tableContainer">
         <tr class="row">
           <th>Nombre</th>
@@ -83,7 +85,7 @@ export class ShowUsers extends navigator(LitElement) {
 
   navigateTo(element, path) {
     localStorage.clear();
-    localStorage.setItem("user", element.id);
+    localStorage.setItem("user", JSON.stringify(element));
     console.log(localStorage.getItem('user'), "en show")
     
 
