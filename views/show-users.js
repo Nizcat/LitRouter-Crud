@@ -17,6 +17,10 @@ export class ShowUsers extends navigator(LitElement) {
         display: flex;
         flex-direction: column;
         align-items: center;
+        width: 100vw;
+        height: 100vh;
+        background-color: black;
+        color: gray;
       }
       .tableContainer {
         display: flex;
@@ -33,6 +37,11 @@ export class ShowUsers extends navigator(LitElement) {
         cursor: pointer;
         color: green;
       }
+      .new {
+        align-self: flex-end;
+        margin-right: 20em;
+        font-size: 1em;
+      }
     `,
   ];
 
@@ -41,18 +50,22 @@ export class ShowUsers extends navigator(LitElement) {
     this.users = [];
     this.getdata();
     localStorage.clear();
-    window.addEventListener('storage', (e) => {
-      console.log(e, "event")
-    })
+    window.addEventListener("storage", (e) => {
+      console.log(e, "event");
+    });
   }
   firstUpdated() {
     super.firstUpdated();
     this.users;
+    
   }
 
   render() {
     return html`
       <h1>Users</h1>
+      <button class="new" @click="${() => this.navigate("/info")}">
+        New User
+      </button>
       <table class="tableContainer">
         <tr class="row">
           <th>Nombre</th>
@@ -75,7 +88,9 @@ export class ShowUsers extends navigator(LitElement) {
                 >
                   Edit
                 </td>
-                <td class="action">Delete</td>
+                <td @click="${() => this.deleteData(element)}" class="action">
+                  Delete
+                </td>
               </tr>
             `
         )}
@@ -84,10 +99,16 @@ export class ShowUsers extends navigator(LitElement) {
   }
 
   navigateTo(element, path) {
+    this.dispatchEvent(
+      new CustomEvent("user", {
+        detail: { element },
+        bubbles: true,
+        composed: true,
+      })
+    );
     localStorage.clear();
     localStorage.setItem("user", JSON.stringify(element));
-    console.log(localStorage.getItem('user'), "en show")
-    
+    console.log(localStorage.getItem("user"), "en show");
 
     this.navigate(path);
   }
@@ -96,5 +117,25 @@ export class ShowUsers extends navigator(LitElement) {
       .then((response) => response.json())
       .then((data) => (this.users = data));
   }
+  deleteData(element) {
+    if (confirm("Confirma que borrará al usuario")) {
+      const requestOptions = {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: null,
+      };
+
+      let url =
+        "https://638f55eb4ddca317d7f57d22.mockapi.io/users/" + element.id;
+
+      fetch(url, requestOptions)
+        .then((response) => response.json())
+        .then((data) => console.log(this.users[data]));
+
+        
+    }
+    window.location.reload(false);
+  }
+
 }
 customElements.define("show-users", ShowUsers);

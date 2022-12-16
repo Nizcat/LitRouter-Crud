@@ -37,6 +37,13 @@ export class MainRouter extends router(LitElement) {
     this.route = "";
     this.params = {};
     this.query = {};
+
+    this.addEventListener("user", (e) => {
+      console.log(e.detail.data, "en listener");
+     
+      this.requestUpdate();
+    });
+
   }
 
   router(route, params, query, data) {
@@ -50,12 +57,15 @@ export class MainRouter extends router(LitElement) {
   render() {
     return html`
       <main-outlet active-route=${this.route}>
-        <show-users route="users" ></show-users>
+        <show-users  route="users" ></show-users>
         <info-users route="info"></info-users>
-        <edit-users route="edit"></edit-users>
+        <edit-users  route="edit"></edit-users>
 
       </main-outlet>
     `;
   }
+
+
+
 }
 customElements.define("main-router", MainRouter);

@@ -1,6 +1,6 @@
 import { LitElement, html, css } from "lit";
-
-export class EditUsers extends LitElement {
+import { navigator } from "lit-element-router";
+export class EditUsers extends navigator(LitElement) {
   static get properties() {
     return {
       user: { type: Number },
@@ -9,7 +9,30 @@ export class EditUsers extends LitElement {
   static styles = [
     css`
       :host {
-        display: block;
+        display: flex;
+        flex-direction: column;
+        width: 100vw;
+        height: 100vh;
+        background-color: black;
+        color: gray;
+      }
+      .infoContainer {
+        display: flex;
+        flex-direction: column;
+        font-size: 2em;
+        margin-left:4em;
+        height:50vh;
+        align-items:space-around;
+        justify-items:space-around;
+        
+      }
+      .entries {
+        width:10em;
+        font-size:1em;
+      }
+      .act{
+        
+        width:7em;
       }
     `,
   ];
@@ -30,14 +53,17 @@ export class EditUsers extends LitElement {
     return html`
       <div>
         <h1>user</h1>
-        <button @click="${this.setUser}">Do you want to edit this user?</button>
-        <div>
-          <input id="nombre" placeholder=${this.user.name} />
-          <input id="primerApellido" placeholder=${this.user.lastName} />
-          <input id="segundoApellido" placeholder=${this.user.secondLastName}
-                />
+        
+        <div class="infoContainer">
+        <button class="entries" @click="${this.setUser}">Quiero actualizar los datos del usuario</button>
+          <label>Nombre:</label>
+          <input class="entries" id="nombre" value=${this.user.name} />
+          <label>Apellido Paterno:</label>
+          <input class="entries" id="primerApellido" value=${this.user.lastName} />
+          <label>Apellido Materno:</label>
+          <input class="entries" id="segundoApellido" value=${this.user.secondLastName} />
 
-          <button @click="${this.sendHerbs}">ACTUALIZAR</button>
+          <button class="act" @click="${this.userAct}">ACTUALIZAR</button>
         </div>
         <p></p>
       </div>
@@ -45,8 +71,28 @@ export class EditUsers extends LitElement {
   }
 
   setUser() {
-    this.user = localStorage.getItem("user");
-    console.log(this.user, "después de botón");
+    this.user = JSON.parse(localStorage.getItem("user"));
+  }
+  userAct() {
+    this.name = this.shadowRoot.getElementById("nombre").value;
+    this.lastName = this.shadowRoot.getElementById("primerApellido").value;
+    this.secondLastName = this.shadowRoot.getElementById("segundoApellido").value;
+   
+
+    this.actualUser = {
+      "name": this.name,
+      "lastName": this.lastName,
+      "secondLastName": this.secondLastName,
+    };
+    const requestOptions = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(this.actualUser),
+    };
+    fetch("https://638f55eb4ddca317d7f57d22.mockapi.io/users/"+this.user.id, requestOptions)
+      .then((response) => response.json())
+      .then((data) => console.log( data));
+   this.navigate("/");
   }
 }
 customElements.define("edit-users", EditUsers);
