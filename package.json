@@ -1,0 +1,21 @@
+{
+  "name": "lit-router",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "wds --node-resolve --open --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@doubletrade/lit-datatable": "^2.0.0",
+    "lit": "^2.5.0",
+    "lit-element-router": "^2.0.3"
+  },
+  "devDependencies": {
+    "@web/dev-server": "^0.1.35"
+  }
+}
