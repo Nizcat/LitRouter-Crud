@@ -40,9 +40,9 @@ export class MainRouter extends router(LitElement) {
     this.name="kai";
 
     this.addEventListener("user", (e) => {
-      console.log(e.detail.data, "en listener");
+      console.log(e.detail, "en listener abuelo");
      
-      this.requestUpdate();
+      
     });
 
   }

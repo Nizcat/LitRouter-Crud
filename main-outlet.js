@@ -17,12 +17,28 @@ constructor(){
   super();
   console.log(this.name, "en outlet");
 this.name="kai2"
+this.addEventListener("user", (e) => {
+  this.selectedItem = e.detail;
+  console.log(this.selectedItem, "para arriba en papa");
+  this.toGrandpa(this.selectedItem)
+});
 } 
+toGrandpa(user){
+  console.log(user, "tograndpa");
+  this.dispatchEvent(
+    new CustomEvent("user", {
+      detail: { user},
+      bubbles: true,
+      composed: true,
+    })
+  );
+}
  render() {
-    return html` <slot  > ${console.log(this.name)}
+    return html` <slot  >
 
     </slot> `;
   }
+
 }
 
 customElements.define("main-outlet", MainOutlet);
