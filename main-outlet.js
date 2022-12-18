@@ -4,9 +4,22 @@ import "./views/info-users";
 import "./views/show-users";
 import "./views/edit-users";
 
+
+
 export class MainOutlet extends outlet(LitElement) {
-  render() {
-    return html` <slot  > 
+   static get properties() {
+    return {
+      name: { type: String },
+    };
+  }
+
+constructor(){
+  super();
+  console.log(this.name, "en outlet");
+this.name="kai2"
+} 
+ render() {
+    return html` <slot  > ${console.log(this.name)}
 
     </slot> `;
   }

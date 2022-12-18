@@ -9,6 +9,7 @@ export class ShowUsers extends navigator(LitElement) {
       conf: { type: Object },
       data: { type: Object },
       storage: { type: Object },
+      name:{type:String},
     };
   }
   static styles = [
@@ -57,6 +58,7 @@ export class ShowUsers extends navigator(LitElement) {
   firstUpdated() {
     super.firstUpdated();
     this.users;
+    console.log(this.name, "en nieto");
     
   }
 
@@ -130,11 +132,11 @@ export class ShowUsers extends navigator(LitElement) {
 
       fetch(url, requestOptions)
         .then((response) => response.json())
-        .then((data) => console.log(this.users[data]));
+        .then((data) => console.log(data));
 
         
     }
-    window.location.reload(false);
+    
   }
 
 }
