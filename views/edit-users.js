@@ -3,7 +3,7 @@ import { navigator } from "lit-element-router";
 export class EditUsers extends navigator(LitElement) {
   static get properties() {
     return {
-      user: { type: Number },
+      user: { type: Object },
     };
   }
   static styles = [
@@ -39,23 +39,17 @@ export class EditUsers extends navigator(LitElement) {
 
   constructor() {
     super();
-    this.user = localStorage.getItem("user");
+    console.log(this.user, "en edit")
   }
 
-  connectedCallback() {
-    super.connectedCallback();
-    this.user = JSON.stringify(localStorage.getItem("user"));
-    console.log(this.user, "en callback");
-    this.requestUpdate();
-  }
-
+ 
   render() {
     return html`
       <div>
         <h1>user</h1>
         
-        <div class="infoContainer">
-        <button class="entries" @click="${this.setUser}">Quiero actualizar los datos del usuario</button>
+        <div class="infoContainer">${console.log(this.user, "hasta edit")}
+       
           <label>Nombre:</label>
           <input class="entries" id="nombre" value=${this.user.name} />
           <label>Apellido Paterno:</label>
@@ -70,9 +64,7 @@ export class EditUsers extends navigator(LitElement) {
     `;
   }
 
-  setUser() {
-    this.user = JSON.parse(localStorage.getItem("user"));
-  }
+
   userAct() {
     this.name = this.shadowRoot.getElementById("nombre").value;
     this.lastName = this.shadowRoot.getElementById("primerApellido").value;

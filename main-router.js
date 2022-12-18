@@ -40,7 +40,8 @@ export class MainRouter extends router(LitElement) {
     this.name="kai";
 
     this.addEventListener("user", (e) => {
-      console.log(e.detail, "en listener abuelo");
+      this.user=e.detail.element;
+      console.log(this.user, "en router");
      
       
     });
@@ -57,10 +58,11 @@ export class MainRouter extends router(LitElement) {
 
   render() {
     return html`
-      <main-outlet name=${this.name} active-route=${this.route}>
+      <main-outlet name=${this.name} user=${this.user}  active-route=${this.route}>
+      
         <show-users name=${this.name} route="users" ></show-users>
         <info-users route="info"></info-users>
-        <edit-users  route="edit"></edit-users>
+        <edit-users .user=${this.user} route="edit"></edit-users>
 
       </main-outlet>
     `;
