@@ -21,7 +21,7 @@ export class MainOutlet extends outlet(LitElement) {
 
       this.toGrandpa(this.selectedItem);
     });
-    console.log(this.user, "en constructor outler")
+    
   }
   toGrandpa(user) {
     this.dispatchEvent(

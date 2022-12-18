@@ -9,7 +9,7 @@ export class ShowUsers extends navigator(LitElement) {
       conf: { type: Object },
       data: { type: Object },
       storage: { type: Object },
-      name:{type:String},
+      name: { type: String },
     };
   }
   static styles = [
@@ -30,7 +30,8 @@ export class ShowUsers extends navigator(LitElement) {
         font-size: 2em;
       }
       .row {
-        display: flex;
+        display: grid;
+        grid-template-columns: 23% 23% 23% 10% 10%;
         justify-content: space-around;
         border-bottom: solid 1px gray;
       }
@@ -59,7 +60,6 @@ export class ShowUsers extends navigator(LitElement) {
     super.firstUpdated();
     this.users;
     console.log(this.name, "en nieto");
-    
   }
 
   render() {
@@ -133,11 +133,7 @@ export class ShowUsers extends navigator(LitElement) {
       fetch(url, requestOptions)
         .then((response) => response.json())
         .then((data) => console.log(data));
-
-        
     }
-    
   }
-
 }
 customElements.define("show-users", ShowUsers);

@@ -41,9 +41,7 @@ export class MainRouter extends router(LitElement) {
 
     this.addEventListener("user", (e) => {
       this.user=e.detail.element;
-      console.log(this.user, "en router");
-     
-      
+           
     });
 
   }

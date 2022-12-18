@@ -48,7 +48,7 @@ export class EditUsers extends navigator(LitElement) {
       <div>
         <h1>user</h1>
         
-        <div class="infoContainer">${console.log(this.user, "hasta edit")}
+        <div class="infoContainer">
        
           <label>Nombre:</label>
           <input class="entries" id="nombre" value=${this.user.name} />
