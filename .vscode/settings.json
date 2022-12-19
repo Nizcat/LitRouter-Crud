@@ -1,11 +1,14 @@
 {
     "cSpell.words": [
+        "allusers",
         "Apellido",
         "datatable",
         "doubletrade",
         "getdata",
         "Materno",
         "Nombre",
-        "Paterno"
+        "Paterno",
+        "sendnew",
+        "showusers"
     ]
 }

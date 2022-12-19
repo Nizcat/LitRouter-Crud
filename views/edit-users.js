@@ -41,6 +41,7 @@ export class EditUsers extends navigator(LitElement) {
   constructor() {
     super();
     console.log(this.user, "en edit")
+    
   }
 
  
@@ -84,9 +85,21 @@ export class EditUsers extends navigator(LitElement) {
     };
     fetch("https://638f55eb4ddca317d7f57d22.mockapi.io/users/"+this.user.id, requestOptions)
       .then((response) => response.json())
-      .then((data) => console.log( data));
+      .then((data) => this.sendnewUser(data));
+    
    this.navigate("/");
-   
+        
   }
+  sendnewUser(user){
+    console.log(user, "antes de mandar");
+    this.dispatchEvent(
+        new CustomEvent("userChanged", {
+          detail: { user },
+          bubbles: true,
+          composed: true,
+        })
+  )}
 }
+
+
 customElements.define("edit-users", EditUsers);

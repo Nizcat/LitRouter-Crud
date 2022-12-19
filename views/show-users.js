@@ -8,9 +8,8 @@ export class ShowUsers extends navigator(LitElement) {
       users: { type: Object },
       conf: { type: Object },
       data: { type: Object },
-      storage: { type: Object },
-      name: { type: String },
-      allUsers: { type: Object },
+      allusers: { type: Object },
+      showusers: {type: Boolean}
     };
   }
   static styles = [
@@ -50,28 +49,17 @@ export class ShowUsers extends navigator(LitElement) {
 
   constructor() {
     super();
-    this.users = [];
-    this.getdata();
-    localStorage.clear();
-    window.addEventListener("storage", (e) => {
-      console.log(e, "event");
-    });
-    this.showUsers = true;
+    this.showusers1 = true;
   }
-  firstUpdated() {
-    super.firstUpdated();
-    this.users;
-  }
+  
 
   render() {
     return html`
-      ${this.showUsers
-        ? html`<button @click="${this.showUsers1}">
-            Mostrar usuarios
-          </button>`
+      ${this.showusers1
+        ? html`<button @click="${this.showUsers1}">Mostrar usuarios</button>`
         : html` <h1>Usuarios</h1>
-            ${console.log(this.allUsers)}
-            <button class="new" @click="${() => (this.navigate("/info"))}">
+            ${console.log(this.allusers)}
+            <button class="new" @click="${() => this.navigate("/info")}">
               Agregar usuario
             </button>
             <table class="tableContainer">
@@ -83,7 +71,7 @@ export class ShowUsers extends navigator(LitElement) {
                 <th>------</th>
               </tr>
 
-              ${this.allUsers.map(
+              ${this.allusers.map(
                 (element) =>
                   html`
                     <tr class="row">
@@ -109,9 +97,10 @@ export class ShowUsers extends navigator(LitElement) {
     `;
   }
 
-  showUsers1(){
-    this.showUsers=false;
-    this.navigate("/")
+  showUsers1() {
+
+    this.showusers1 = false;
+    this.navigate("/");
   }
 
   navigateTo(element, path) {
@@ -124,11 +113,7 @@ export class ShowUsers extends navigator(LitElement) {
     );
     this.navigate(path);
   }
-  getdata() {
-    fetch("https://638f55eb4ddca317d7f57d22.mockapi.io/users")
-      .then((response) => response.json())
-      .then((data) => (this.users = data));
-  }
+
   deleteData(element) {
     if (confirm("Confirma que borrará al usuario")) {
       const requestOptions = {
@@ -144,7 +129,6 @@ export class ShowUsers extends navigator(LitElement) {
         .then((response) => response.json())
         .then((data) => console.log(data));
     }
-    window.location.onload(false);
   }
 }
 customElements.define("show-users", ShowUsers);
