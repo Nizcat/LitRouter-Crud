@@ -58,7 +58,6 @@ export class ShowUsers extends navigator(LitElement) {
       ${this.showusers1
         ? html`<button @click="${this.showUsers1}">Mostrar usuarios</button>`
         : html` <h1>Usuarios</h1>
-            ${console.log(this.allusers)}
             <button class="new" @click="${() => this.navigate("/info")}">
               Agregar usuario
             </button>
@@ -127,8 +126,17 @@ export class ShowUsers extends navigator(LitElement) {
 
       fetch(url, requestOptions)
         .then((response) => response.json())
-        .then((data) => console.log(data));
+        .then((data) => this.sendTo(data));
     }
+  }
+  sendTo(user){
+    this.dispatchEvent(
+      new CustomEvent("deletedU", {
+        detail: { user },
+        bubbles: true,
+        composed: true,
+      })
+    );
   }
 }
 customElements.define("show-users", ShowUsers);

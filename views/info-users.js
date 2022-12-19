@@ -76,8 +76,18 @@ export class InfoUsers extends navigator(LitElement) {
     };
     fetch("https://638f55eb4ddca317d7f57d22.mockapi.io/users/", requestOptions)
       .then((response) => response.json())
-      .then((data) => console.log(data, "en actualizar"));
+      .then((data) => this.sendTo(data));
     this.navigate("/");
   }
+  sendTo(user){
+    this.dispatchEvent(
+      new CustomEvent("newUser", {
+        detail: { user },
+        bubbles: true,
+        composed: true,
+      })
+    );
+  }
+
 }
 customElements.define("info-users", InfoUsers);
