@@ -34,7 +34,7 @@ export class InfoUsers extends navigator(LitElement) {
   render() {
     return html`
       <div>
-        <h1>New User</h1>
+        <h1>Registrar usuario</h1>
 
         <div class="infoContainer">
           <label>Nombre:</label>
@@ -76,7 +76,7 @@ export class InfoUsers extends navigator(LitElement) {
     };
     fetch("https://638f55eb4ddca317d7f57d22.mockapi.io/users/", requestOptions)
       .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((data) => console.log(data, "en actualizar"));
     this.navigate("/");
   }
 }

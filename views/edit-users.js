@@ -47,7 +47,7 @@ export class EditUsers extends navigator(LitElement) {
   render() {
     return html`
       <div>
-        <h1>Edit user</h1>
+        <h1>Editar usuario</h1>
         
         <div class="infoContainer">
        
@@ -86,6 +86,7 @@ export class EditUsers extends navigator(LitElement) {
       .then((response) => response.json())
       .then((data) => console.log( data));
    this.navigate("/");
+   
   }
 }
 customElements.define("edit-users", EditUsers);

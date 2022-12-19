@@ -64,9 +64,9 @@ export class ShowUsers extends navigator(LitElement) {
 
   render() {
     return html`
-      <h1>Users</h1>
+      <h1>Usuarios</h1>
       <button class="new" @click="${() => this.navigate("/info")}">
-        New User
+        Agregar usuario
       </button>
       <table class="tableContainer">
         <tr class="row">
@@ -130,6 +130,7 @@ export class ShowUsers extends navigator(LitElement) {
         .then((response) => response.json())
         .then((data) => console.log(data));
     }
+    window.location.onload(false)
   }
 }
 customElements.define("show-users", ShowUsers);
