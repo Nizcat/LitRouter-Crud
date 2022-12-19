@@ -1,6 +1,7 @@
 import { LitElement, html, css } from "lit";
 import { router } from "lit-element-router";
 import "./main-outlet";
+import "./helper/get-data"
 import "./views/show-users";
 import "./views/info-users";
 
@@ -43,6 +44,13 @@ export class MainRouter extends router(LitElement) {
       this.user=e.detail.element;
            
     });
+    this.addEventListener("usersData", (e) => {
+     
+      this.allUsers=e.detail.users;
+      console.log(this.allUsers, "en router");
+
+           
+    });
 
   }
 
@@ -56,13 +64,14 @@ export class MainRouter extends router(LitElement) {
 
   render() {
     return html`
-      <main-outlet  user=${this.user}  active-route=${this.route}>
+      <main-outlet   active-route=${this.route}>
       
-        <show-users  route="users" ></show-users>
+        <show-users .allUsers="${this.allUsers}" route="users" ></show-users>
         <info-users route="info"></info-users>
         <edit-users .user=${this.user} route="edit"></edit-users>
 
       </main-outlet>
+      <get-data></get-data>
     `;
   }
 

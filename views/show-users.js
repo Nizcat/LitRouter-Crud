@@ -10,6 +10,7 @@ export class ShowUsers extends navigator(LitElement) {
       data: { type: Object },
       storage: { type: Object },
       name: { type: String },
+      allUsers: { type: Object },
     };
   }
   static styles = [
@@ -55,49 +56,62 @@ export class ShowUsers extends navigator(LitElement) {
     window.addEventListener("storage", (e) => {
       console.log(e, "event");
     });
+    this.showUsers = true;
   }
   firstUpdated() {
     super.firstUpdated();
     this.users;
-    
   }
 
   render() {
     return html`
-      <h1>Usuarios</h1>
-      <button class="new" @click="${() => this.navigate("/info")}">
-        Agregar usuario
-      </button>
-      <table class="tableContainer">
-        <tr class="row">
-          <th>Nombre</th>
-          <th>Apellido Paterno</th>
-          <th>Apellido Materno</th>
-          <th>------</th>
-          <th>------</th>
-        </tr>
-
-        ${this.users.map(
-          (element) =>
-            html`
+      ${this.showUsers
+        ? html`<button @click="${this.showUsers1}">
+            Mostrar usuarios
+          </button>`
+        : html` <h1>Usuarios</h1>
+            ${console.log(this.allUsers)}
+            <button class="new" @click="${() => (this.navigate("/info"))}">
+              Agregar usuario
+            </button>
+            <table class="tableContainer">
               <tr class="row">
-                <td>${element.name}</td>
-                <td>${element.lastName}</td>
-                <td>${element.secondLastName}</td>
-                <td
-                  @click="${() => this.navigateTo(element, "/edit")}"
-                  class="action"
-                >
-                  Edit
-                </td>
-                <td @click="${() => this.deleteData(element)}" class="action">
-                  Delete
-                </td>
+                <th>Nombre</th>
+                <th>Apellido Paterno</th>
+                <th>Apellido Materno</th>
+                <th>------</th>
+                <th>------</th>
               </tr>
-            `
-        )}
-      </table>
+
+              ${this.allUsers.map(
+                (element) =>
+                  html`
+                    <tr class="row">
+                      <td>${element.name}</td>
+                      <td>${element.lastName}</td>
+                      <td>${element.secondLastName}</td>
+                      <td
+                        @click="${() => this.navigateTo(element, "/edit")}"
+                        class="action"
+                      >
+                        Edit
+                      </td>
+                      <td
+                        @click="${() => this.deleteData(element)}"
+                        class="action"
+                      >
+                        Delete
+                      </td>
+                    </tr>
+                  `
+              )}
+            </table>`}
     `;
+  }
+
+  showUsers1(){
+    this.showUsers=false;
+    this.navigate("/")
   }
 
   navigateTo(element, path) {
@@ -108,7 +122,7 @@ export class ShowUsers extends navigator(LitElement) {
         composed: true,
       })
     );
-       this.navigate(path);
+    this.navigate(path);
   }
   getdata() {
     fetch("https://638f55eb4ddca317d7f57d22.mockapi.io/users")
@@ -130,7 +144,7 @@ export class ShowUsers extends navigator(LitElement) {
         .then((response) => response.json())
         .then((data) => console.log(data));
     }
-    window.location.onload(false)
+    window.location.onload(false);
   }
 }
 customElements.define("show-users", ShowUsers);
