@@ -11,6 +11,7 @@ export class EditUsers extends navigator(LitElement) {
       :host {
         display: flex;
         flex-direction: column;
+        align-items: center;
         width: 100vw;
         height: 100vh;
         background-color: black;
@@ -46,7 +47,7 @@ export class EditUsers extends navigator(LitElement) {
   render() {
     return html`
       <div>
-        <h1>user</h1>
+        <h1>Edit user</h1>
         
         <div class="infoContainer">
        

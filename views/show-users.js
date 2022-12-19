@@ -59,7 +59,7 @@ export class ShowUsers extends navigator(LitElement) {
   firstUpdated() {
     super.firstUpdated();
     this.users;
-    console.log(this.name, "en nieto");
+    
   }
 
   render() {
@@ -108,11 +108,7 @@ export class ShowUsers extends navigator(LitElement) {
         composed: true,
       })
     );
-    localStorage.clear();
-    localStorage.setItem("user", JSON.stringify(element));
-    console.log(localStorage.getItem("user"), "en show");
-
-    this.navigate(path);
+       this.navigate(path);
   }
   getdata() {
     fetch("https://638f55eb4ddca317d7f57d22.mockapi.io/users")
