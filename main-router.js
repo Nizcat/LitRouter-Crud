@@ -6,6 +6,7 @@ import "./helper/get-data";
 import "./views/show-users";
 import "./views/info-users";
 import "./views/edit-users";
+import "./views/update-data";
 
 
 export class MainRouter extends router(LitElement) {
