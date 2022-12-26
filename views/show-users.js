@@ -1,6 +1,7 @@
 import { LitElement, html, css } from "lit";
 import { navigator } from "lit-element-router";
 import "../node_modules/@doubletrade/lit-datatable";
+import { GetData } from "../helper/get-data";
 
 export class ShowUsers extends navigator(LitElement) {
   static get properties() {
@@ -9,7 +10,7 @@ export class ShowUsers extends navigator(LitElement) {
       conf: { type: Object },
       data: { type: Object },
       allusers: { type: Object },
-      showusers: {type: Boolean}
+      showusers: { type: Boolean },
     };
   }
   static styles = [
@@ -44,19 +45,31 @@ export class ShowUsers extends navigator(LitElement) {
         margin-right: 20em;
         font-size: 1em;
       }
+      .muestraU {
+        font-size: 2em;
+        background-color: black;
+        color: white;
+        border: solid white 2px;
+        border-radius: 25px;
+        padding: 2em;
+        cursor: pointer;
+        margin-top: 2em;
+      }
     `,
   ];
 
   constructor() {
     super();
     this.showusers1 = true;
+    this.per = new GetData();
   }
-  
 
   render() {
     return html`
       ${this.showusers1
-        ? html`<button @click="${this.showUsers1}">Mostrar usuarios</button>`
+        ? html`<button class="muestraU" @click="${this.showUsers1}">
+            Mostrar usuarios
+          </button>`
         : html` <h1>Usuarios</h1>
             <button class="new" @click="${() => this.navigate("/info")}">
               Agregar usuario
@@ -97,7 +110,6 @@ export class ShowUsers extends navigator(LitElement) {
   }
 
   showUsers1() {
-
     this.showusers1 = false;
     this.navigate("/");
   }
@@ -126,10 +138,16 @@ export class ShowUsers extends navigator(LitElement) {
 
       fetch(url, requestOptions)
         .then((response) => response.json())
-        .then((data) => this.sendTo(data));
+        .then((data) => {
+        this.per.updateUserData();
+        console.log(data);
+        this.sendTo(data)
+      });
+     ;
     }
   }
-  sendTo(user){
+
+  sendTo(user) {
     this.dispatchEvent(
       new CustomEvent("deletedU", {
         detail: { user },

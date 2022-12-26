@@ -1,10 +1,12 @@
 import { LitElement, html, css } from "lit";
 import { router } from "lit-element-router";
+
 import "./main-outlet";
 import "./helper/get-data";
 import "./views/show-users";
 import "./views/info-users";
 import "./views/edit-users";
+import "./views/update-data";
 
 export class MainRouter extends router(LitElement) {
   static get properties() {
@@ -37,25 +39,34 @@ export class MainRouter extends router(LitElement) {
     this.route = "";
     this.params = {};
     this.query = {};
+    
 
     this.addEventListener("user", (e) => {
       this.user = e.detail.element;
+      console.log("editando listener");
     });
     this.addEventListener("usersData", (e) => {
       this.allUsers = e.detail.users;
     });
-    this.addEventListener("userChanged", (e) => {
-      this.userChanged = e.detail.user;
-      this.newarr3=[]
+
+    this.addEventListener("newUser", (e) => {
+      this.newUser1=e.detail.user
+      this.newarr2=[]
+      this.newarr2.push(this.newUser1)
       for (let user of this.allUsers) {
-        if (user.id != this.userChanged.id) {
-          this.newarr3.push(user)
-        }
+        this.newarr2.push(user)
       }
-      this.newarr3.push(this.userChanged)
-      this.allUsers = this.newarr3;
+      this.allUsers = this.newarr2;
+      console.log("nuevo usuario listener");
       this.requestUpdate();
     });
+
+    window.addEventListener("recibo", (e) => {
+      this.allUsers = e.detail.users;
+      this.shouldUpdate();
+     
+    });
+
     this.addEventListener("deletedU", (e) => {
       this.deleted = e.detail.user;
       this.newarr=[]
@@ -67,14 +78,16 @@ export class MainRouter extends router(LitElement) {
       this.allUsers = this.newarr;
       this.requestUpdate();
     });
-    this.addEventListener("newUser", (e) => {
-      this.newUser1=e.detail.user
-      this.newarr2=[]
-      this.newarr2.push(this.newUser1)
+    this.addEventListener("userChanged", (e) => {
+      this.userChanged = e.detail.user;
+      this.newarr3=[]
       for (let user of this.allUsers) {
-        this.newarr2.push(user)
+        if (user.id != this.userChanged.id) {
+          this.newarr3.push(user)
+        }
       }
-      this.allUsers = this.newarr2;
+      this.newarr3.push(this.userChanged)
+      this.allUsers = this.newarr3;
       this.requestUpdate();
     });
   }
@@ -89,11 +102,12 @@ export class MainRouter extends router(LitElement) {
   render() {
     return html`
       <main-outlet active-route=${this.route}>
-        <show-users .allusers=${this.allUsers} route="users"></show-users>
+        <show-users .allusers=${this.allUsers} route="users"></show-users>${console.log(this.allUsers)}
         <info-users route="info"></info-users>
         <edit-users .user=${this.user} route="edit"></edit-users>
       </main-outlet>
       <get-data></get-data>
+      <update-data></update-data>
     `;
   }
 }
