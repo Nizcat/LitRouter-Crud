@@ -1,6 +1,8 @@
 import { LitElement, html, css } from "lit";
 import { navigator } from "lit-element-router";
 import "../node_modules/@doubletrade/lit-datatable";
+import "../helper/get-data"
+
 
 export class ShowUsers extends navigator(LitElement) {
   static get properties() {
@@ -8,7 +10,7 @@ export class ShowUsers extends navigator(LitElement) {
       users: { type: Object },
       conf: { type: Object },
       data: { type: Object },
-      allusers: { type: Object },
+      allUsers: { type: Object },
       showusers: {type: Boolean}
     };
   }
@@ -47,20 +49,18 @@ export class ShowUsers extends navigator(LitElement) {
     `,
   ];
 
-  constructor() {
-    super();
-    this.showusers1 = true;
-  }
+ 
+
   
 
   render() {
     return html`
-      ${this.showusers1
-        ? html`<button @click="${this.showUsers1}">Mostrar usuarios</button>`
-        : html` <h1>Usuarios</h1>
+     
+         <h1>Usuarios</h1>${console.log(this.allUsers, "EN RENDER SHOW")}
             <button class="new" @click="${() => this.navigate("/info")}">
               Agregar usuario
             </button>
+           
             <table class="tableContainer">
               <tr class="row">
                 <th>Nombre</th>
@@ -70,7 +70,7 @@ export class ShowUsers extends navigator(LitElement) {
                 <th>------</th>
               </tr>
 
-              ${this.allusers.map(
+              ${this.allUsers.map(
                 (element) =>
                   html`
                     <tr class="row">
@@ -92,7 +92,8 @@ export class ShowUsers extends navigator(LitElement) {
                     </tr>
                   `
               )}
-            </table>`}
+            </table>}
+            
     `;
   }
 
@@ -126,7 +127,7 @@ export class ShowUsers extends navigator(LitElement) {
 
       fetch(url, requestOptions)
         .then((response) => response.json())
-        .then((data) => this.sendTo(data));
+        .then((data) => {this.sendTo(data), console.log("delete function");});
     }
   }
   sendTo(user){

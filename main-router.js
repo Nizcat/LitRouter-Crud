@@ -12,6 +12,7 @@ export class MainRouter extends router(LitElement) {
       route: { type: String },
       params: { type: Object },
       query: { type: Object },
+      allUsers: { type: Object },
     };
   }
 
@@ -43,38 +44,22 @@ export class MainRouter extends router(LitElement) {
     });
     this.addEventListener("usersData", (e) => {
       this.allUsers = e.detail.users;
+      console.log(this.allUsers, "en listener ");
     });
     this.addEventListener("userChanged", (e) => {
-      this.userChanged = e.detail.user;
-      this.newarr3=[]
-      for (let user of this.allUsers) {
-        if (user.id != this.userChanged.id) {
-          this.newarr3.push(user)
-        }
-      }
-      this.newarr3.push(this.userChanged)
-      this.allUsers = this.newarr3;
+      this.sum =1;
+      console.log(this.sum,"listener router user");
       this.requestUpdate();
+      
     });
     this.addEventListener("deletedU", (e) => {
-      this.deleted = e.detail.user;
-      this.newarr=[]
-      for (let user of this.allUsers) {
-        if (user.id != this.deleted.id) {
-          this.newarr.push(user)
-        }
-      }
-      this.allUsers = this.newarr;
+      this.sum =3;
+      console.log(this.sum,"listener router user");
       this.requestUpdate();
     });
     this.addEventListener("newUser", (e) => {
-      this.newUser1=e.detail.user
-      this.newarr2=[]
-      this.newarr2.push(this.newUser1)
-      for (let user of this.allUsers) {
-        this.newarr2.push(user)
-      }
-      this.allUsers = this.newarr2;
+      this.sum =2;
+      console.log(this.sum,"listener router user");
       this.requestUpdate();
     });
   }
@@ -89,11 +74,12 @@ export class MainRouter extends router(LitElement) {
   render() {
     return html`
       <main-outlet active-route=${this.route}>
-        <show-users .allusers=${this.allUsers} route="users"></show-users>
+        <show-users .allUsers=${this.allUsers} route="users"></show-users
+        >${console.log(this.allUsers, "en render router")}
         <info-users route="info"></info-users>
         <edit-users .user=${this.user} route="edit"></edit-users>
+        <get-data repeat=${this.sum}></get-data>
       </main-outlet>
-      <get-data></get-data>
     `;
   }
 }
