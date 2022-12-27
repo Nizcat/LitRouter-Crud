@@ -46,6 +46,16 @@ export class ShowUsers extends navigator(LitElement) {
         margin-right: 20em;
         font-size: 1em;
       }
+      .muestraU {
+        font-size: 2em;
+        background-color: black;
+        color: white;
+        border: solid white 2px;
+        border-radius: 25px;
+        padding: 2em;
+        cursor: pointer;
+        margin-top: 2em;
+      }
     `,
   ];
 
@@ -98,7 +108,6 @@ export class ShowUsers extends navigator(LitElement) {
   }
 
   showUsers1() {
-
     this.showusers1 = false;
     this.navigate("/");
   }
@@ -130,7 +139,8 @@ export class ShowUsers extends navigator(LitElement) {
         .then((data) => {this.sendTo(data), console.log("delete function");});
     }
   }
-  sendTo(user){
+
+  sendTo(user) {
     this.dispatchEvent(
       new CustomEvent("deletedU", {
         detail: { user },

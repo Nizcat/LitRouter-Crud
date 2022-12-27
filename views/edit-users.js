@@ -1,5 +1,7 @@
 import { LitElement, html, css } from "lit";
 import { navigator } from "lit-element-router";
+import { GetData } from "../helper/get-data";
+import "./update-data"
 export class EditUsers extends navigator(LitElement) {
   static get properties() {
     return {
@@ -40,14 +42,21 @@ export class EditUsers extends navigator(LitElement) {
 
   constructor() {
     super();
-    console.log(this.user, "en edit")
+    
+    this.per = new GetData();
+    window.addEventListener("recibo", (e) => {
+     console.log(e.detail.users, "en edit desde updata");
+      
+    });
+    this.principal = document.getElementById("principal");
+   
     
   }
 
  
   render() {
     return html`
-      <div>
+      <div id="principal">
         <h1>Editar usuario</h1>
         
         <div class="infoContainer">
@@ -85,11 +94,16 @@ export class EditUsers extends navigator(LitElement) {
     };
     fetch("https://638f55eb4ddca317d7f57d22.mockapi.io/users/"+this.user.id, requestOptions)
       .then((response) => response.json())
-      .then((data) => this.sendnewUser(data));
+      .then((data) =>{ this.sendnewUser(data)});
+      this.navigate("/")
+      
+      
     
-   this.navigate("/");
+   
+   
         
   }
+  
   sendnewUser(user){
     console.log(user, "antes de mandar");
     this.dispatchEvent(

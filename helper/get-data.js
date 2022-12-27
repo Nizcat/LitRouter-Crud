@@ -53,4 +53,4 @@ this.requestUpdate();
 }
 
 }
-customElements.define('get-data', GetData);
+customElements.define("get-data", GetData);

@@ -1,10 +1,12 @@
 import { LitElement, html, css } from "lit";
 import { router } from "lit-element-router";
+
 import "./main-outlet";
 import "./helper/get-data";
 import "./views/show-users";
 import "./views/info-users";
 import "./views/edit-users";
+import "./views/update-data";
 
 export class MainRouter extends router(LitElement) {
   static get properties() {
@@ -38,9 +40,11 @@ export class MainRouter extends router(LitElement) {
     this.route = "";
     this.params = {};
     this.query = {};
+    
 
     this.addEventListener("user", (e) => {
       this.user = e.detail.element;
+      console.log("editando listener");
     });
     this.addEventListener("usersData", (e) => {
       this.allUsers = e.detail.users;
@@ -52,6 +56,13 @@ export class MainRouter extends router(LitElement) {
       this.requestUpdate();
       
     });
+
+    window.addEventListener("recibo", (e) => {
+      this.allUsers = e.detail.users;
+      this.shouldUpdate();
+     
+    });
+
     this.addEventListener("deletedU", (e) => {
       this.sum =3;
       console.log(this.sum,"listener router user");
@@ -74,8 +85,7 @@ export class MainRouter extends router(LitElement) {
   render() {
     return html`
       <main-outlet active-route=${this.route}>
-        <show-users .allUsers=${this.allUsers} route="users"></show-users
-        >${console.log(this.allUsers, "en render router")}
+        <show-users .allUsers=${this.allUsers} route="users"></show-users>
         <info-users route="info"></info-users>
         <edit-users .user=${this.user} route="edit"></edit-users>
         <get-data repeat=${this.sum}></get-data>

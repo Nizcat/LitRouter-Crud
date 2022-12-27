@@ -16,6 +16,8 @@
     "lit-element-router": "^2.0.3"
   },
   "devDependencies": {
-    "@web/dev-server": "^0.1.35"
+    "@web/dev-server": "^0.1.35",
+    "rollup": "^2.79.1",
+    "rollup-plugin-node-resolve": "^5.2.0"
   }
 }
