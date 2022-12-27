@@ -66,7 +66,7 @@ export class ShowUsers extends navigator(LitElement) {
   render() {
     return html`
      
-         <h1>Usuarios</h1>${console.log(this.allUsers, "EN RENDER SHOW")}
+         <h1>Usuarios</h1>
             <button class="new" @click="${() => this.navigate("/info")}">
               Agregar usuario
             </button>
@@ -107,11 +107,6 @@ export class ShowUsers extends navigator(LitElement) {
     `;
   }
 
-  showUsers1() {
-    this.showusers1 = false;
-    this.navigate("/");
-  }
-
   navigateTo(element, path) {
     this.dispatchEvent(
       new CustomEvent("user", {
@@ -136,7 +131,7 @@ export class ShowUsers extends navigator(LitElement) {
 
       fetch(url, requestOptions)
         .then((response) => response.json())
-        .then((data) => {this.sendTo(data), console.log("delete function");});
+        .then((data) => {this.sendTo(data)});
     }
   }
 

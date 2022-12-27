@@ -1,7 +1,7 @@
 import { LitElement, html, css } from "lit";
 import { navigator } from "lit-element-router";
-import { GetData } from "../helper/get-data";
-import "./update-data"
+
+
 export class EditUsers extends navigator(LitElement) {
   static get properties() {
     return {
@@ -40,19 +40,7 @@ export class EditUsers extends navigator(LitElement) {
     `,
   ];
 
-  constructor() {
-    super();
-    
-    this.per = new GetData();
-    window.addEventListener("recibo", (e) => {
-     console.log(e.detail.users, "en edit desde updata");
-      
-    });
-    this.principal = document.getElementById("principal");
-   
-    
-  }
-
+ 
  
   render() {
     return html`
@@ -105,7 +93,6 @@ export class EditUsers extends navigator(LitElement) {
   }
   
   sendnewUser(user){
-    console.log(user, "antes de mandar");
     this.dispatchEvent(
         new CustomEvent("userChanged", {
           detail: { user },

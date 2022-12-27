@@ -6,7 +6,7 @@ import "./helper/get-data";
 import "./views/show-users";
 import "./views/info-users";
 import "./views/edit-users";
-import "./views/update-data";
+
 
 export class MainRouter extends router(LitElement) {
   static get properties() {
@@ -44,15 +44,15 @@ export class MainRouter extends router(LitElement) {
 
     this.addEventListener("user", (e) => {
       this.user = e.detail.element;
-      console.log("editando listener");
+     
     });
     this.addEventListener("usersData", (e) => {
       this.allUsers = e.detail.users;
-      console.log(this.allUsers, "en listener ");
+      
     });
     this.addEventListener("userChanged", (e) => {
       this.sum =1;
-      console.log(this.sum,"listener router user");
+      
       this.requestUpdate();
       
     });
@@ -65,12 +65,12 @@ export class MainRouter extends router(LitElement) {
 
     this.addEventListener("deletedU", (e) => {
       this.sum =3;
-      console.log(this.sum,"listener router user");
+      
       this.requestUpdate();
     });
     this.addEventListener("newUser", (e) => {
       this.sum =2;
-      console.log(this.sum,"listener router user");
+     
       this.requestUpdate();
     });
   }
