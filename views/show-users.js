@@ -102,7 +102,7 @@ export class ShowUsers extends navigator(LitElement) {
                     </tr>
                   `
               )}
-            </table>}
+            </table>
             
     `;
   }

@@ -10,7 +10,7 @@ constructor() {
 super();
 this.getdata();
 this.numberR=0
-this.repeatGetData()
+
 
 }
 update(){
@@ -42,15 +42,7 @@ this.dispatchEvent(
   })
 );
 }
-repeatGetData(sum){
-if(this.repeat!= undefined){
 
-if(this.numberR < sum){
-    this.getdata()
-}
-}
-this.requestUpdate();
-}
 
 }
 customElements.define("get-data", GetData);

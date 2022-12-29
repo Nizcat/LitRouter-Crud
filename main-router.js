@@ -57,12 +57,7 @@ export class MainRouter extends router(LitElement) {
       
     });
 
-    window.addEventListener("recibo", (e) => {
-      this.allUsers = e.detail.users;
-      this.shouldUpdate();
-     
-    });
-
+ 
     this.addEventListener("deletedU", (e) => {
       this.sum =3;
       
