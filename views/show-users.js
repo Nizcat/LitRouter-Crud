@@ -1,8 +1,5 @@
 import { LitElement, html, css } from "lit";
 import { navigator } from "lit-element-router";
-import "../node_modules/@doubletrade/lit-datatable";
-import "../helper/get-data"
-
 
 export class ShowUsers extends navigator(LitElement) {
   static get properties() {
@@ -11,7 +8,6 @@ export class ShowUsers extends navigator(LitElement) {
       conf: { type: Object },
       data: { type: Object },
       allUsers: { type: Object },
-      showusers: {type: Boolean}
     };
   }
   static styles = [
@@ -23,7 +19,7 @@ export class ShowUsers extends navigator(LitElement) {
         width: 100vw;
         height: 100vh;
         background-color: black;
-        color: gray;
+        color: white;
       }
       .tableContainer {
         display: flex;
@@ -135,14 +131,14 @@ export class ShowUsers extends navigator(LitElement) {
     }
   }
 
-  sendTo(user) {
+  sendTo(user){
+    this.numberThatChanges=3
     this.dispatchEvent(
-      new CustomEvent("deletedU", {
-        detail: { user },
-        bubbles: true,
-        composed: true,
-      })
-    );
-  }
+        new CustomEvent("bringDataAgain", {
+          detail: { number: this.numberThatChanges },
+          bubbles: true,
+          composed: true,
+        })
+  )}
 }
 customElements.define("show-users", ShowUsers);

@@ -93,9 +93,10 @@ export class EditUsers extends navigator(LitElement) {
   }
   
   sendnewUser(user){
+    this.numberThatChanges=1
     this.dispatchEvent(
-        new CustomEvent("userChanged", {
-          detail: { user },
+        new CustomEvent("bringDataAgain", {
+          detail: { number: this.numberThatChanges },
           bubbles: true,
           composed: true,
         })

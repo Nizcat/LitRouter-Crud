@@ -50,25 +50,13 @@ export class MainRouter extends router(LitElement) {
       this.allUsers = e.detail.users;
       
     });
-    this.addEventListener("userChanged", (e) => {
-      this.sum =1;
-      
-      this.requestUpdate();
-      
-    });
-
- 
-    this.addEventListener("deletedU", (e) => {
-      this.sum =3;
-      
-      this.requestUpdate();
-    });
-    this.addEventListener("newUser", (e) => {
-      this.sum =2;
-     
+    this.addEventListener("bringDataAgain", (e) => {
+      this.sum =e.detail.number;
       this.requestUpdate();
     });
   }
+ 
+   
 
   router(route, params, query, data) {
     this.route = route;

@@ -10,7 +10,7 @@ export class InfoUsers extends navigator(LitElement) {
         width: 100vw;
         height: 100vh;
         background-color: black;
-        color: gray;
+        color: white;
       }
       .infoContainer {
         display: flex;
@@ -80,14 +80,14 @@ export class InfoUsers extends navigator(LitElement) {
     this.navigate("/");
   }
   sendTo(user){
+    this.numberThatChanges=2
     this.dispatchEvent(
-      new CustomEvent("newUser", {
-        detail: { user },
-        bubbles: true,
-        composed: true,
-      })
-    );
-  }
+        new CustomEvent("bringDataAgain", {
+          detail: { number: this.numberThatChanges },
+          bubbles: true,
+          composed: true,
+        })
+  )}
 
 }
 customElements.define("info-users", InfoUsers);
