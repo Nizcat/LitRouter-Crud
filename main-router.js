@@ -8,7 +8,6 @@ import "./views/info-users";
 import "./views/edit-users";
 import "./views/update-data";
 
-
 export class MainRouter extends router(LitElement) {
   static get properties() {
     return {

@@ -1,10 +1,5 @@
 import { LitElement, html, css } from "lit";
 import { navigator } from "lit-element-router";
-<<<<<<< HEAD
-=======
-import "../node_modules/@doubletrade/lit-datatable";
-import { GetData } from "../helper/get-data";
->>>>>>> 5f7ee7a (adventjs5-2)
 
 export class ShowUsers extends navigator(LitElement) {
   static get properties() {
@@ -12,12 +7,7 @@ export class ShowUsers extends navigator(LitElement) {
       users: { type: Object },
       conf: { type: Object },
       data: { type: Object },
-<<<<<<< HEAD
       allUsers: { type: Object },
-=======
-      allusers: { type: Object },
-      showusers: { type: Boolean },
->>>>>>> 5f7ee7a (adventjs5-2)
     };
   }
   static styles = [
@@ -65,7 +55,6 @@ export class ShowUsers extends navigator(LitElement) {
     `,
   ];
 
-<<<<<<< HEAD
  
 
   
@@ -74,21 +63,6 @@ export class ShowUsers extends navigator(LitElement) {
     return html`
      
          <h1>Usuarios</h1>
-=======
-  constructor() {
-    super();
-    this.showusers1 = true;
-    this.per = new GetData();
-  }
-
-  render() {
-    return html`
-      ${this.showusers1
-        ? html`<button class="muestraU" @click="${this.showUsers1}">
-            Mostrar usuarios
-          </button>`
-        : html` <h1>Usuarios</h1>
->>>>>>> 5f7ee7a (adventjs5-2)
             <button class="new" @click="${() => this.navigate("/info")}">
               Agregar usuario
             </button>
@@ -129,14 +103,6 @@ export class ShowUsers extends navigator(LitElement) {
     `;
   }
 
-<<<<<<< HEAD
-=======
-  showUsers1() {
-    this.showusers1 = false;
-    this.navigate("/");
-  }
-
->>>>>>> 5f7ee7a (adventjs5-2)
   navigateTo(element, path) {
     this.dispatchEvent(
       new CustomEvent("user", {
@@ -161,25 +127,12 @@ export class ShowUsers extends navigator(LitElement) {
 
       fetch(url, requestOptions)
         .then((response) => response.json())
-<<<<<<< HEAD
         .then((data) => {this.sendTo(data)});
     }
   }
 
   sendTo(user){
     this.numberThatChanges=3
-=======
-        .then((data) => {
-        this.per.updateUserData();
-        console.log(data);
-        this.sendTo(data)
-      });
-     ;
-    }
-  }
-
-  sendTo(user) {
->>>>>>> 5f7ee7a (adventjs5-2)
     this.dispatchEvent(
         new CustomEvent("bringDataAgain", {
           detail: { number: this.numberThatChanges },
